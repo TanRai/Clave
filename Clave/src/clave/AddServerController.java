@@ -10,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -41,16 +40,16 @@ public class AddServerController implements Initializable {
             alert.setHeaderText("Please enter valid server name");
             alert.showAndWait();
         }
-        else if(!Home_Clave.dao.serverCheck(temp)){
+        else if(!Home.dao.serverCheck(temp)){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setHeaderText("Please enter valid server name");
             alert.showAndWait();
         }
         else{
-            Home_Clave.dao.joinServer(temp, Home_Clave.username);
+            Home.dao.joinServer(temp, Home.username);
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.close();
-            Home_Clave.getServerList().refreshServerList();
+            Home.getServerList().refreshServerList();
             joinServerField.setText("");
         }
     }
@@ -61,16 +60,16 @@ public class AddServerController implements Initializable {
             alert.setHeaderText("Server name have to be minimum 5 characters");
             alert.showAndWait();
         }
-        else if(Home_Clave.dao.serverCheck(temp)){
+        else if(Home.dao.serverCheck(temp)){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setHeaderText("Server name already taken");
             alert.showAndWait();
         }
         else {
-            Home_Clave.dao.createServer(temp, Home_Clave.username);
+            Home.dao.createServer(temp, Home.username);
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             stage.close();
-            Home_Clave.getServerList().refreshServerList();
+            Home.getServerList().refreshServerList();
             createServerField.setText("");
         }
     }

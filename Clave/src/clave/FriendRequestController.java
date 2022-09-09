@@ -24,7 +24,7 @@ public class FriendRequestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         vbox.getChildren().clear();
-        Object obj = JSONValue.parse(Home_Clave.dao.getRequestList(Home_Clave.username));
+        Object obj = JSONValue.parse(Home.dao.getRequestList(Home.username));
         JSONArray jsonArray = (JSONArray) obj;
         JSONObject jsonObj;
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -34,16 +34,19 @@ public class FriendRequestController implements Initializable {
     }
     public void sendButtonAction(ActionEvent e){
         if(!sendField.getText().equals("")){
-            if(Home_Clave.dao.userCheck(sendField.getText())){
-                if(!Home_Clave.dao.sendRequest(Home_Clave.username, sendField.getText())){
+            if(Home.dao.userCheck(sendField.getText())){
+                if(!Home.dao.sendRequest(Home.username, sendField.getText())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("Already friend with this user");
+                    alert.setHeaderText("Already friend with this user or Pending friend request");
                     alert.showAndWait();
                 }
                 else{
-                    Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-                    stage.close();
+                    //Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+                    //stage.close();
                     sendField.setText("");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Friend request sent");
+                    alert.showAndWait();
                 }
             }
             else{

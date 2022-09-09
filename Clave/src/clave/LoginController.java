@@ -102,7 +102,8 @@ public class LoginController implements Initializable {
             }
             if(flag)
                 return;
-            if(dao.insertUser(u,p)){
+            if(!dao.userCheck(u)){
+                dao.insertUser(u,p);
                 headerTextLabel.setText("Succesful Registration.Please Login.");
                 usernameField.setText("");
                 passwordField.setText("");
@@ -142,7 +143,11 @@ public class LoginController implements Initializable {
     private void initializeHome(String username) throws IOException{
         Stage stage = (Stage) scenePane.getScene().getWindow();
         stage.close();
-        new Home_Clave(username,dao);
+        new Home(username,dao);
+        ServerListener serverListener = new ServerListener();
+        Thread thread = new Thread(serverListener);
+        thread.start();
+        
     }
     
 }
